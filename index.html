@@ -39,7 +39,7 @@
   <!-- Goodbye Message -->
   <div id="goodbye-message">Goodbye! 👋</div>
 
-  <!-- Typing Animation Script -->
+  <!-- Typing Animation Script with Sound -->
   <script>
     const terminalText = document.getElementById('terminal-text');
     const killBtn = document.getElementById('kill-btn');
@@ -64,11 +64,19 @@
     let lineIndex = 0;
     let charIndex = 0;
 
+    // Typing sound
+    const typeSound = new Audio('typing.mp3');
+
     function typeLine() {
       if (lineIndex < lines.length) {
         if (charIndex < lines[lineIndex].length) {
           terminalText.innerHTML += lines[lineIndex][charIndex];
           charIndex++;
+
+          // Play typing sound
+          typeSound.currentTime = 0;
+          typeSound.play().catch(() => {});
+
           setTimeout(typeLine, 40);
         } else {
           terminalText.innerHTML += "<br>";
@@ -77,7 +85,11 @@
           setTimeout(typeLine, 500);
         }
       } else {
-        // Typing finished, show Kill button smoothly
+        // Typing finished, stop sound
+        typeSound.pause();
+        typeSound.currentTime = 0;
+
+        // Show Kill button smoothly
         killBtn.style.opacity = "1";
       }
     }
@@ -133,12 +145,19 @@
       canvas.height = window.innerHeight;
     });
 
-    // ===== Kill button functionality =====
+    // ===== Kill button functionality with vanish sound =====
     const mainContent = document.getElementById('main-content');
     const mainTerminal = document.getElementById('main-content-terminal');
     const goodbyeMsg = document.getElementById('goodbye-message');
 
+    // Vanish sound
+    const vanishSound = new Audio('vanish.mp3');
+
     killBtn.addEventListener('click', () => {
+      // Play vanish sound
+      vanishSound.play().catch(() => {});
+
+      // Play vanish animation
       mainContent.classList.add('vanish');
       mainTerminal.classList.add('vanish');
       canvas.classList.add('vanish');
