@@ -12,9 +12,6 @@
   <!-- Background animation container -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- Kill Button -->
-  <button id="kill-btn">💀 Kill</button>
-
   <!-- Profile Section -->
   <div class="profile-container" id="main-content">
     <img src="profile.jpg" alt="Profile Photo" class="profile-pic">
@@ -36,12 +33,16 @@
     </div>
   </div>
 
+  <!-- Kill Button -->
+  <button id="kill-btn">💀 Kill</button>
+
   <!-- Goodbye Message -->
   <div id="goodbye-message">Goodbye! 👋</div>
 
   <!-- Typing Animation Script -->
   <script>
     const terminalText = document.getElementById('terminal-text');
+    const killBtn = document.getElementById('kill-btn');
 
     const lines = [
       "$ whoami",
@@ -75,6 +76,9 @@
           charIndex = 0;
           setTimeout(typeLine, 500);
         }
+      } else {
+        // Typing finished, show Kill button smoothly
+        killBtn.style.opacity = "1";
       }
     }
 
@@ -130,19 +134,16 @@
     });
 
     // ===== Kill button functionality =====
-    const killBtn = document.getElementById('kill-btn');
     const mainContent = document.getElementById('main-content');
     const mainTerminal = document.getElementById('main-content-terminal');
     const goodbyeMsg = document.getElementById('goodbye-message');
 
     killBtn.addEventListener('click', () => {
-      // Play vanish animation
       mainContent.classList.add('vanish');
       mainTerminal.classList.add('vanish');
       canvas.classList.add('vanish');
       killBtn.classList.add('vanish');
 
-      // Show goodbye message after animation
       setTimeout(() => {
         mainContent.style.display = 'none';
         mainTerminal.style.display = 'none';
@@ -150,7 +151,7 @@
         killBtn.style.display = 'none';
         goodbyeMsg.style.display = 'block';
         goodbyeMsg.classList.add('fade-in');
-      }, 1000); // match duration of vanish animation
+      }, 1000);
     });
   </script>
 
