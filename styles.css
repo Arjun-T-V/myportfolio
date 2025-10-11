@@ -122,10 +122,9 @@ body {
 
 /* ===== KILL BUTTON ===== */
 #kill-btn {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative; /* flows below terminal */
+  display: block;
+  margin: 20px auto; /* center horizontally & spacing */
   z-index: 3;
   background-color: #ff4c4c;
   border: none;
@@ -136,11 +135,12 @@ body {
   border-radius: 5px;
   font-family: 'Fira Code', monospace;
   transition: all 0.3s ease;
+  opacity: 0; /* hidden until typing finishes */
 }
 
 #kill-btn:hover {
   background-color: #ff1f1f;
-  transform: translateX(-50%) scale(1.1);
+  transform: scale(1.1);
 }
 
 /* ===== VANISH ANIMATION ===== */
@@ -176,16 +176,18 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
-  .profile-pic {
-    width: 90px;
-    height: 90px;
-  }
+  .profile-pic { width: 80px; height: 80px; }
+  .name { font-size: 1.3rem; }
+  .role { font-size: 0.8rem; }
+  .terminal { width: 92%; border-radius: 8px; }
+  .terminal-body { font-size: 0.85rem; padding: 15px; }
+  #kill-btn { padding: 8px 16px; font-size: 0.9rem; }
+  #goodbye-message { font-size: 1.5rem; }
+}
 
-  .terminal {
-    width: 90%;
-  }
-
-  .terminal-body {
-    font-size: 0.9rem;
-  }
+@media (max-width: 400px) {
+  .terminal-body { font-size: 0.8rem; }
+  .name { font-size: 1.1rem; }
+  .role { font-size: 0.7rem; }
+  #kill-btn { padding: 6px 14px; }
 }
