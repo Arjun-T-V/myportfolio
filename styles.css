@@ -1,0 +1,191 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  font-family: 'Fira Code', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===== BACKGROUND CANVAS ===== */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 1s ease;
+}
+
+/* ===== PROFILE SECTION ===== */
+.profile-container {
+  text-align: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  transition: all 1s ease;
+}
+
+.profile-pic {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid #00ff80;
+  object-fit: cover;
+}
+
+.name {
+  color: #00ff80;
+  margin-top: 10px;
+  font-size: 1.6rem;
+}
+
+.role {
+  color: #8b949e;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* ===== TERMINAL ===== */
+.terminal {
+  position: relative;
+  z-index: 2;
+  background-color: #161b22;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 700px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+  overflow: hidden;
+  transition: all 1s ease;
+}
+
+.terminal-header {
+  background-color: #21262d;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #30363d;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.red { background-color: #ff5f56; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #27c93f; }
+
+.title {
+  color: #8b949e;
+  font-size: 0.9rem;
+}
+
+/* ===== TERMINAL BODY ===== */
+.terminal-body {
+  padding: 20px;
+  color: #00ff80;
+  white-space: pre-line;
+  min-height: 250px;
+  font-size: 1rem;
+  overflow-y: auto;
+}
+
+/* ===== CURSOR EFFECT ===== */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  background-color: #00ff80;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ===== KILL BUTTON ===== */
+#kill-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  background-color: #ff4c4c;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.3s ease;
+}
+
+#kill-btn:hover {
+  background-color: #ff1f1f;
+  transform: translateX(-50%) scale(1.1);
+}
+
+/* ===== VANISH ANIMATION ===== */
+.vanish {
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 1s ease;
+}
+
+/* ===== GOODBYE MESSAGE ===== */
+#goodbye-message {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #00ff80;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 5;
+  text-align: center;
+  opacity: 0;
+}
+
+#goodbye-message.fade-in {
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+  }
+
+  .terminal {
+    width: 90%;
+  }
+
+  .terminal-body {
+    font-size: 0.9rem;
+  }
+}

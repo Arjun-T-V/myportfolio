@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arjun T V | Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Background animation container -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Kill Button -->
+  <button id="kill-btn">💀 Kill</button>
+
+  <!-- Profile Section -->
+  <div class="profile-container" id="main-content">
+    <img src="profile.jpg" alt="Profile Photo" class="profile-pic">
+    <h1 class="name">Arjun T V</h1>
+    <p class="role">Computer Engineering Student | Web Developer | Tech Enthusiast</p>
+  </div>
+
+  <!-- Small Terminal Window -->
+  <div class="terminal" id="main-content-terminal">
+    <div class="terminal-header">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <p class="title">~/arjun_tv/portfolio</p>
+    </div>
+
+    <div class="terminal-body" id="terminal-body">
+      <span id="terminal-text"></span><span class="cursor">_</span>
+    </div>
+  </div>
+
+  <!-- Goodbye Message -->
+  <div id="goodbye-message">Goodbye! 👋</div>
+
+  <!-- Typing Animation Script -->
+  <script>
+    const terminalText = document.getElementById('terminal-text');
+
+    const lines = [
+      "$ whoami",
+      "=> Arjun T V",
+      "$ cat about.txt",
+      "=> Passionate about coding, web development, and AI.",
+      "$ cat education.txt",
+      "=> B.Tech in Computer Science @ Vimal Jyothi Engineering College (2022 - Present)",
+      "$ ls skills/",
+      "=> HTML  CSS  JavaScript  Python  Java  Django  Git",
+      "$ cat achievements.log",
+      "=> Built an Online Code Editor | Participated in Hackathons | Completed Web Dev Bootcamp",
+      "$ echo 'contact me'",
+      "=> Email: arjun118654@gmail.com",
+      "=> GitHub: github.com/Arjun-T-V",
+      "=> LinkedIn: www.linkedin.com/in/arjun-t-v-a975452b4",
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (lineIndex < lines.length) {
+        if (charIndex < lines[lineIndex].length) {
+          terminalText.innerHTML += lines[lineIndex][charIndex];
+          charIndex++;
+          setTimeout(typeLine, 40);
+        } else {
+          terminalText.innerHTML += "<br>";
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeLine, 500);
+        }
+      }
+    }
+
+    typeLine();
+  </script>
+
+  <!-- Background Animation Script -->
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const symbols = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789<>/{}[]()';
+    const particles = [];
+
+    for (let i = 0; i < 120; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 15 + 8,
+        symbol: symbols[Math.floor(Math.random() * symbols.length)],
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(0,255,128,0.2)';
+      ctx.font = '20px Fira Code';
+
+      particles.forEach(p => {
+        ctx.fillText(p.symbol, p.x, p.y);
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // ===== Kill button functionality =====
+    const killBtn = document.getElementById('kill-btn');
+    const mainContent = document.getElementById('main-content');
+    const mainTerminal = document.getElementById('main-content-terminal');
+    const goodbyeMsg = document.getElementById('goodbye-message');
+
+    killBtn.addEventListener('click', () => {
+      // Play vanish animation
+      mainContent.classList.add('vanish');
+      mainTerminal.classList.add('vanish');
+      canvas.classList.add('vanish');
+      killBtn.classList.add('vanish');
+
+      // Show goodbye message after animation
+      setTimeout(() => {
+        mainContent.style.display = 'none';
+        mainTerminal.style.display = 'none';
+        canvas.style.display = 'none';
+        killBtn.style.display = 'none';
+        goodbyeMsg.style.display = 'block';
+        goodbyeMsg.classList.add('fade-in');
+      }, 1000); // match duration of vanish animation
+    });
+  </script>
+
+</body>
+</html>
