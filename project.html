@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="project_container">
+        <h1 class="h1">Days To Live</h1>
+        <p class="para1">Enter Your Date Of Birth</p>
+        <input type="date" class="input" id="dob_input">
+        <button class="btn" onclick="calculate()">calculate</button>
+        <div class="output" id="result">
+
+        </div>
+    </div>
+    <script>
+        function calculate()
+        {
+            const dob=document.getElementById("dob_input").value;
+            console.log(dob);
+            if(!dob){
+                document.getElementById("result").innerText="please select a date";
+                return;
+            }
+            const dateobj=new Date(dob);
+            const today=new Date();
+            console.log(today);
+            const datediff=Math.abs(today-dateobj);
+            console.log(datediff);
+            const day=Math.ceil(datediff/(1000*60*60*24));
+            document.getElementById("result").innerText=`you have lived for ${day.toLocaleString()} days!`;
+            return;
+        }
+    </script>
+</body>
+</html>
